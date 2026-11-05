@@ -1,12 +1,7 @@
--- Team07 - CST4341 Coursework 1
--- Script 1: create the database and all 25 tables
-
 DROP DATABASE IF EXISTS team07_taxi_demo;
 CREATE DATABASE team07_taxi_demo;
 USE team07_taxi_demo;
 
-
--- 01. staff
 CREATE TABLE staff (
   staff_id INT PRIMARY KEY,
   full_name VARCHAR(80) NOT NULL,
@@ -18,14 +13,12 @@ CREATE TABLE staff (
   CHECK (staff_status IN ('Active','Inactive'))
 );
 
--- 02. operating_area
 CREATE TABLE operating_area (
   area_id INT PRIMARY KEY,
   area_name VARCHAR(40) NOT NULL UNIQUE,
   zone_category VARCHAR(20) NOT NULL
 );
 
--- 03. applicant
 CREATE TABLE applicant (
   applicant_id INT PRIMARY KEY,
   full_name VARCHAR(80) NOT NULL,
@@ -34,7 +27,6 @@ CREATE TABLE applicant (
   city VARCHAR(40) NOT NULL
 );
 
--- 04. application
 CREATE TABLE application (
   application_id INT PRIMARY KEY,
   applicant_id INT NOT NULL,
@@ -52,7 +44,6 @@ CREATE TABLE application (
   CHECK (decision_date IS NULL OR decision_date >= submitted_date)
 );
 
--- 05. application_document
 CREATE TABLE application_document (
   document_id INT PRIMARY KEY,
   application_id INT NOT NULL,
@@ -63,7 +54,6 @@ CREATE TABLE application_document (
   CHECK (verified_flag IN ('Y','N'))
 );
 
--- 06. driver
 CREATE TABLE driver (
   driver_id INT PRIMARY KEY,
   application_id INT NOT NULL UNIQUE,
@@ -82,7 +72,6 @@ CREATE TABLE driver (
   CHECK (commission_rate BETWEEN 0 AND 1)
 );
 
--- 07. vehicle
 CREATE TABLE vehicle (
   vehicle_id INT PRIMARY KEY,
   registration_no VARCHAR(20) NOT NULL UNIQUE,
@@ -94,7 +83,6 @@ CREATE TABLE vehicle (
   vehicle_status VARCHAR(25) NOT NULL
 );
 
--- 08. vehicle_document
 CREATE TABLE vehicle_document (
   vehicle_document_id INT PRIMARY KEY,
   vehicle_id INT NOT NULL,
@@ -106,7 +94,6 @@ CREATE TABLE vehicle_document (
   CHECK (document_type IN ('Insurance','Permit','Fitness','Pollution'))
 );
 
--- 09. driver_absence
 CREATE TABLE driver_absence (
   absence_id INT PRIMARY KEY,
   driver_id INT NOT NULL,
@@ -121,7 +108,6 @@ CREATE TABLE driver_absence (
   CHECK (absence_status IN ('Pending','Approved','Rejected'))
 );
 
--- 10. vehicle_assignment
 CREATE TABLE vehicle_assignment (
   assignment_id INT PRIMARY KEY,
   driver_id INT NOT NULL,
@@ -141,7 +127,6 @@ CREATE TABLE vehicle_assignment (
   CHECK (end_ts IS NULL OR end_ts > start_ts)
 );
 
--- 11. driver_shift
 CREATE TABLE driver_shift (
   shift_id INT PRIMARY KEY,
   assignment_id INT NOT NULL,
@@ -153,7 +138,6 @@ CREATE TABLE driver_shift (
   CHECK (logout_ts IS NULL OR logout_ts > login_ts)
 );
 
--- 12. trip
 CREATE TABLE trip (
   trip_id INT PRIMARY KEY,
   shift_id INT NOT NULL,
@@ -174,7 +158,6 @@ CREATE TABLE trip (
   CHECK (end_ts > start_ts)
 );
 
--- 13. gps_point
 CREATE TABLE gps_point (
   gps_id INT PRIMARY KEY,
   vehicle_id INT NOT NULL,
@@ -187,7 +170,6 @@ CREATE TABLE gps_point (
   CHECK (latitude BETWEEN -90 AND 90 AND longitude BETWEEN -180 AND 180)
 );
 
--- 14. relocation
 CREATE TABLE relocation (
   relocation_id INT PRIMARY KEY,
   vehicle_id INT NOT NULL,
@@ -203,7 +185,6 @@ CREATE TABLE relocation (
   CHECK (from_area_id <> to_area_id)
 );
 
--- 15. fuel_transaction
 CREATE TABLE fuel_transaction (
   fuel_txn_id INT PRIMARY KEY,
   assignment_id INT NOT NULL,
@@ -219,7 +200,6 @@ CREATE TABLE fuel_transaction (
   CHECK (verification_status IN ('Verified','Pending','Rejected'))
 );
 
--- 16. vehicle_expense
 CREATE TABLE vehicle_expense (
   expense_id INT PRIMARY KEY,
   vehicle_id INT NOT NULL,
@@ -231,7 +211,6 @@ CREATE TABLE vehicle_expense (
   CHECK (expense_type IN ('Insurance','Registration','Permit','Depreciation','Other'))
 );
 
--- 17. problem_report
 CREATE TABLE problem_report (
   report_id INT PRIMARY KEY,
   vehicle_id INT NOT NULL,
@@ -245,7 +224,6 @@ CREATE TABLE problem_report (
   CHECK (report_status IN ('Open','Under Review','Resolved'))
 );
 
--- 18. problem_photo
 CREATE TABLE problem_photo (
   photo_id INT PRIMARY KEY,
   report_id INT NOT NULL,
@@ -253,7 +231,6 @@ CREATE TABLE problem_photo (
   FOREIGN KEY (report_id) REFERENCES problem_report(report_id)
 );
 
--- 19. maintenance_job
 CREATE TABLE maintenance_job (
   job_id INT PRIMARY KEY,
   vehicle_id INT NOT NULL,
@@ -275,7 +252,6 @@ CREATE TABLE maintenance_job (
   CHECK (completed_ts IS NULL OR completed_ts > start_ts)
 );
 
--- 20. maintenance_part
 CREATE TABLE maintenance_part (
   part_id INT PRIMARY KEY,
   job_id INT NOT NULL,
@@ -286,7 +262,6 @@ CREATE TABLE maintenance_part (
   FOREIGN KEY (job_id) REFERENCES maintenance_job(job_id)
 );
 
--- 21. traffic_fine
 CREATE TABLE traffic_fine (
   fine_id INT PRIMARY KEY,
   challan_no VARCHAR(20) NOT NULL UNIQUE,
@@ -302,7 +277,6 @@ CREATE TABLE traffic_fine (
   CHECK (payment_status IN ('Unpaid','Paid','Partially Paid'))
 );
 
--- 22. driver_payment
 CREATE TABLE driver_payment (
   payment_id INT PRIMARY KEY,
   driver_id INT NOT NULL,
@@ -316,7 +290,6 @@ CREATE TABLE driver_payment (
   CHECK (payment_status IN ('Calculated','Approved','Paid'))
 );
 
--- 23. user_account
 CREATE TABLE user_account (
   user_id INT PRIMARY KEY,
   username VARCHAR(40) NOT NULL UNIQUE,
@@ -332,7 +305,6 @@ CREATE TABLE user_account (
   CHECK (mfa_enabled IN ('Y','N'))
 );
 
--- 24. data_load_log
 CREATE TABLE data_load_log (
   load_id INT PRIMARY KEY,
   source_system VARCHAR(60) NOT NULL,
@@ -345,7 +317,6 @@ CREATE TABLE data_load_log (
   CHECK (load_finished IS NULL OR load_finished >= load_started)
 );
 
--- 25. data_quality_issue
 CREATE TABLE data_quality_issue (
   issue_id INT PRIMARY KEY,
   load_id INT NOT NULL,
@@ -360,14 +331,11 @@ CREATE TABLE data_quality_issue (
   CHECK (issue_status IN ('Pending','Resolved'))
 );
 
--- 26. Trigger for the assignment rules
--- This trigger checks every new row in vehicle_assignment before it is saved.
 DELIMITER $$
 CREATE TRIGGER check_assignment
 BEFORE INSERT ON vehicle_assignment
 FOR EACH ROW
 BEGIN
-  -- Rule 1: a driver cannot have two assignments at the same time
   IF EXISTS (SELECT * FROM vehicle_assignment
              WHERE driver_id = NEW.driver_id
              AND (end_ts IS NULL OR end_ts > NEW.start_ts)
@@ -375,7 +343,6 @@ BEGIN
     SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'This driver already has an assignment at this time';
   END IF;
 
-  -- Rule 2: a taxi can only have one regular driver per shift
   IF NEW.assignment_type = 'Regular' AND EXISTS (
              SELECT * FROM vehicle_assignment
              WHERE vehicle_id = NEW.vehicle_id
@@ -386,7 +353,6 @@ BEGIN
     SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'This taxi already has a regular driver for this shift';
   END IF;
 
-  -- Rule 3: relief cover is only allowed when the regular driver has an approved absence
   IF NEW.assignment_type = 'Relief' AND NOT EXISTS (
              SELECT * FROM vehicle_assignment va
              JOIN driver_absence da ON da.driver_id = va.driver_id
@@ -400,5 +366,4 @@ BEGIN
 END$$
 DELIMITER ;
 
--- Check: this should list 25 tables
 SHOW TABLES;

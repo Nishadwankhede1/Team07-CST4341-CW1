@@ -1,10 +1,5 @@
--- Team07 - CST4341 Coursework 1
--- Script 3: one query for each stakeholder group, plus one extra query
 USE team07_taxi_demo;
 
--- =====================================================================
--- Q1. Prospective drivers (FR01): "What is the status of my application?"
--- =====================================================================
 SET @applicant_email = 'app068@example.test';
 
 WITH my_application AS (
@@ -31,10 +26,6 @@ FROM my_application m
 LEFT JOIN my_documents d ON d.application_id = m.application_id
 LEFT JOIN driver dr ON dr.application_id = m.application_id;
 
--- =====================================================================
--- Q2. Taxi drivers (FR02-FR04): "What did I drive, earn, spend and get fined?"
--- One row per shift worked by the chosen driver.
--- =====================================================================
 SET @driver_id = 61;
 
 WITH my_shifts AS (
@@ -82,9 +73,6 @@ LEFT JOIN my_fuel fu ON fu.assignment_id = ms.assignment_id AND fu.fuel_date = m
 LEFT JOIN my_fines fi ON fi.shift_id = ms.shift_id
 ORDER BY ms.shift_date;
 
--- =====================================================================
--- Q3. Fleet managers (FR05-FR09): one list of key operational figures
--- =====================================================================
 WITH recruitment AS (
   SELECT COUNT(*) AS received,
          SUM(CASE WHEN application_status = 'Approved' THEN 1 ELSE 0 END) AS approved,
@@ -152,9 +140,6 @@ UNION ALL SELECT 'Checks', 'Fines with unknown taxi', unmatched FROM fines
 UNION ALL SELECT 'Demand', CONCAT('Busiest pickup area: ', area_name), pickups FROM busiest_area
 UNION ALL SELECT 'Demand', CONCAT('Quietest pickup area: ', area_name), pickups FROM quietest_area;
 
--- =====================================================================
--- Q4. Maintenance team (FR10-FR12): one row per taxi with reported problems or jobs
--- =====================================================================
 WITH reports AS (
   SELECT vehicle_id,
          COUNT(*) AS problems_reported,
@@ -195,9 +180,6 @@ LEFT JOIN jobs j ON j.vehicle_id = v.vehicle_id
 WHERE r.vehicle_id IS NOT NULL OR j.vehicle_id IS NOT NULL
 ORDER BY open_jobs DESC, repair_cost DESC;
 
--- =====================================================================
--- Q5. Company management (FR13-FR15): daily trend and total for the period
--- =====================================================================
 WITH daily_trips AS (
   SELECT s.shift_date AS day,
          COUNT(DISTINCT va.vehicle_id) AS taxis_used,
@@ -239,9 +221,6 @@ SELECT 'Total', (SELECT COUNT(*) FROM vehicle),
 FROM daily_trips t CROSS JOIN period_costs pc
 GROUP BY pc.maintenance_cost, pc.other_vehicle_costs;
 
--- =====================================================================
--- Q6. System administrators (FR16-FR18): data-quality checklist
--- =====================================================================
 WITH checks AS (
   SELECT 'Duplicate meter records' AS check_name,
          (SELECT COUNT(*) - COUNT(DISTINCT meter_record_ref) FROM trip) AS issues
@@ -273,9 +252,6 @@ UNION ALL
 SELECT CONCAT('Last data load finished: ', MAX(load_finished)), NULL, 'Info'
 FROM data_load_log;
 
--- =====================================================================
--- Q7. Extra query: driver productivity ranking (revenue per hour worked)
--- =====================================================================
 WITH shift_hours AS (
   SELECT va.driver_id, va.shift_type, va.assignment_type, s.shift_id,
          TIMESTAMPDIFF(MINUTE, s.login_ts, s.logout_ts) / 60 AS hours_worked

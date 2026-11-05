@@ -1,10 +1,5 @@
--- Team07 - CST4341 Coursework 1
--- Script 2: insert the sample data into all 25 tables
--- Run this once, after script 1. Parent tables are filled first.
-
 USE team07_taxi_demo;
 
--- 01. staff (8 rows)
 INSERT INTO staff (staff_id, full_name, email, staff_type, hire_date, staff_status) VALUES
   (1, 'Anita Mehta', 'anita@example.test', 'Fleet Manager', '2021-06-01', 'Active'),
   (2, 'Farhan Shah', 'farhan@example.test', 'Maintenance', '2020-02-01', 'Active'),
@@ -15,7 +10,6 @@ INSERT INTO staff (staff_id, full_name, email, staff_type, hire_date, staff_stat
   (7, 'Milan Patel', 'milan@example.test', 'Maintenance', '2023-01-04', 'Active'),
   (8, 'Tara Shah', 'tara@example.test', 'Management', '2021-04-05', 'Active');
 
--- 02. operating_area (6 rows)
 INSERT INTO operating_area (area_id, area_name, zone_category) VALUES
   (1, 'Andheri', 'Urban'),
   (2, 'Bandra', 'Urban'),
@@ -24,7 +18,6 @@ INSERT INTO operating_area (area_id, area_name, zone_category) VALUES
   (5, 'Powai', 'Urban'),
   (6, 'CSMIA Airport', 'Airport');
 
--- 03. applicant (70 rows)
 INSERT INTO applicant (applicant_id, full_name, email, phone, city) VALUES
   (1, 'Ravi Patil', 'driver001@example.test', '9000000001', 'Mumbai'),
   (2, 'Asha Kulkarni', 'driver002@example.test', '9000000002', 'Mumbai'),
@@ -97,7 +90,6 @@ INSERT INTO applicant (applicant_id, full_name, email, phone, city) VALUES
   (69, 'Kunal Sethi', 'app069@example.test', '9010000069', 'Mumbai'),
   (70, 'Faiza Khan', 'app070@example.test', '9010000070', 'Mumbai');
 
--- 04. application (70 rows)
 INSERT INTO application (application_id, applicant_id, submitted_date, application_status, police_verification, reviewed_by, decision_date, rejection_reason) VALUES
   (1, 1, '2026-08-15', 'Approved', 'Cleared', 1, '2026-08-20', NULL),
   (2, 2, '2026-08-15', 'Approved', 'Cleared', 1, '2026-08-20', NULL),
@@ -170,7 +162,6 @@ INSERT INTO application (application_id, applicant_id, submitted_date, applicati
   (69, 69, '2026-10-19', 'Pending', 'Pending', NULL, NULL, NULL),
   (70, 70, '2026-10-20', 'Rejected', 'Pending', 1, '2026-10-22', 'Police check incomplete');
 
--- 05. application_document (68 rows)
 INSERT INTO application_document (document_id, application_id, document_type, document_ref, verified_flag) VALUES
   (1, 1, 'Licence', 'DOC/LIC/0001', 'Y'),
   (2, 2, 'Licence', 'DOC/LIC/0002', 'Y'),
@@ -241,7 +232,6 @@ INSERT INTO application_document (document_id, application_id, document_type, do
   (67, 67, 'Licence', 'DOC/LIC/0067', 'N'),
   (68, 68, 'Licence', 'DOC/LIC/0068', 'N');
 
--- 06. driver (66 rows)
 INSERT INTO driver (driver_id, application_id, licence_no, driver_type, employment_start, driver_status, base_salary, commission_rate, manager_id) VALUES
   (1, 1, 'MH-LIC-0000001', 'Permanent', '2024-04-01', 'Active', 11000, 0.1, 1),
   (2, 2, 'MH-LIC-0000002', 'Permanent', '2024-04-01', 'Active', 11400, 0.1, 6),
@@ -310,7 +300,6 @@ INSERT INTO driver (driver_id, application_id, licence_no, driver_type, employme
   (65, 65, 'MH-LIC-0000065', 'Casual', '2024-04-01', 'Active', 0, 0.3, 1),
   (66, 66, 'MH-LIC-0000066', 'Casual', '2024-04-01', 'Active', 0, 0.3, 6);
 
--- 07. vehicle (30 rows)
 INSERT INTO vehicle (vehicle_id, registration_no, make, model, fuel_type, service_interval_km, acquisition_date, vehicle_status) VALUES
   (1, 'MH01TX0001', 'Maruti', 'WagonR', 'CNG', 10000, '2022-05-10', 'Assigned'),
   (2, 'MH01TX0002', 'Hyundai', 'Aura', 'CNG', 10000, '2022-05-10', 'Assigned'),
@@ -343,7 +332,6 @@ INSERT INTO vehicle (vehicle_id, registration_no, make, model, fuel_type, servic
   (29, 'MH01TX0029', 'Hyundai', 'Aura', 'CNG', 10000, '2022-05-10', 'Assigned'),
   (30, 'MH01TX0030', 'Maruti', 'Dzire', 'CNG', 10000, '2022-05-10', 'Assigned');
 
--- 08. vehicle_document (120 rows)
 INSERT INTO vehicle_document (vehicle_document_id, vehicle_id, document_type, document_ref, valid_until) VALUES
   (1, 1, 'Insurance', 'VEH/01/1', '2027-12-31'),
   (2, 1, 'Permit', 'VEH/01/2', '2027-12-31'),
@@ -466,7 +454,6 @@ INSERT INTO vehicle_document (vehicle_document_id, vehicle_id, document_type, do
   (119, 30, 'Fitness', 'VEH/30/3', '2027-12-31'),
   (120, 30, 'Pollution', 'VEH/30/4', '2027-12-31');
 
--- 09. driver_absence (6 rows)
 INSERT INTO driver_absence (absence_id, driver_id, start_date, end_date, absence_type, absence_status, approved_by) VALUES
   (1, 1, '2026-10-23', '2026-10-23', 'Sick', 'Approved', 1),
   (2, 4, '2026-10-23', '2026-10-23', 'Personal', 'Approved', 1),
@@ -475,7 +462,6 @@ INSERT INTO driver_absence (absence_id, driver_id, start_date, end_date, absence
   (5, 39, '2026-10-25', '2026-10-25', 'Sick', 'Approved', 1),
   (6, 60, '2026-10-25', '2026-10-25', 'Personal', 'Approved', 1);
 
--- 10. vehicle_assignment (65 rows)
 INSERT INTO vehicle_assignment (assignment_id, driver_id, vehicle_id, assigned_by, shift_type, assignment_type, start_ts, end_ts, assignment_status) VALUES
   (1, 1, 1, 1, 'Morning', 'Regular', '2026-10-01 00:00:00', NULL, 'Active'),
   (2, 2, 1, 6, 'Night', 'Regular', '2026-10-01 00:00:00', NULL, 'Active'),
@@ -543,7 +529,6 @@ INSERT INTO vehicle_assignment (assignment_id, driver_id, vehicle_id, assigned_b
   (64, 64, 11, 1, 'Night', 'Relief', '2026-10-24 18:00:00', '2026-10-25 06:00:00', 'Completed'),
   (65, 65, 20, 1, 'Morning', 'Relief', '2026-10-25 06:00:00', '2026-10-25 18:00:00', 'Completed');
 
--- 11. driver_shift (179 rows)
 INSERT INTO driver_shift (shift_id, assignment_id, shift_date, login_ts, logout_ts) VALUES
   (1, 61, '2026-10-23', '2026-10-23 06:05:00', '2026-10-23 17:40:00'),
   (2, 2, '2026-10-23', '2026-10-23 18:06:00', '2026-10-24 05:40:00'),
@@ -725,7 +710,6 @@ INSERT INTO driver_shift (shift_id, assignment_id, shift_date, login_ts, logout_
   (178, 58, '2026-10-25', '2026-10-25 18:07:00', '2026-10-26 05:40:00'),
   (179, 59, '2026-10-25', '2026-10-25 06:08:00', '2026-10-25 17:40:00');
 
--- 12. trip (1253 rows)
 INSERT INTO trip (trip_id, shift_id, meter_record_ref, start_ts, end_ts, pickup_area_id, dropoff_area_id, meter_km, gps_km, fare, payment_method, trip_status, verification_status) VALUES
   (1, 1, 'MTR-20261023-000001', '2026-10-23 06:21:00', '2026-10-23 06:48:00', 2, 4, 4.7, 4.75, 184.1, 'UPI', 'Completed', 'Verified'),
   (2, 1, 'MTR-20261023-000002', '2026-10-23 07:48:00', '2026-10-23 08:22:00', 3, 5, 5.8, 5.92, 213.4, 'UPI', 'Completed', 'Verified'),
@@ -1981,7 +1965,6 @@ INSERT INTO trip (trip_id, shift_id, meter_record_ref, start_ts, end_ts, pickup_
   (1252, 179, 'MTR-20261025-001252', '2026-10-25 13:39:00', '2026-10-25 14:15:00', 5, 1, 11.3, 11.41, 339.9, 'UPI', 'Completed', 'Verified'),
   (1253, 179, 'MTR-20261025-001253', '2026-10-25 15:06:00', '2026-10-25 15:49:00', 6, 2, 12.4, 12.65, 369.2, 'UPI', 'Completed', 'Verified');
 
--- 13. gps_point (360 rows)
 INSERT INTO gps_point (gps_id, vehicle_id, event_ts, latitude, longitude, area_id) VALUES
   (1, 1, '2026-10-23 07:05:00', 19.068, 72.82, 2),
   (2, 1, '2026-10-23 10:05:00', 19.0682, 72.8203, 3),
@@ -2344,7 +2327,6 @@ INSERT INTO gps_point (gps_id, vehicle_id, event_ts, latitude, longitude, area_i
   (359, 30, '2026-10-25 13:00:00', 19.0834, 72.8156, 3),
   (360, 30, '2026-10-25 16:00:00', 19.0836, 72.8159, 4);
 
--- 14. relocation (15 rows)
 INSERT INTO relocation (relocation_id, vehicle_id, from_area_id, to_area_id, requested_by, requested_ts, reason) VALUES
   (1, 1, 2, 4, 1, '2026-10-24 12:04:00', 'Demand balancing'),
   (2, 2, 3, 5, 1, '2026-10-24 12:08:00', 'Demand balancing'),
@@ -2362,7 +2344,6 @@ INSERT INTO relocation (relocation_id, vehicle_id, from_area_id, to_area_id, req
   (14, 14, 3, 5, 1, '2026-10-24 12:56:00', 'Demand balancing'),
   (15, 15, 4, 6, 1, '2026-10-24 13:00:00', 'Demand balancing');
 
--- 15. fuel_transaction (60 rows)
 INSERT INTO fuel_transaction (fuel_txn_id, assignment_id, receipt_ref, purchase_ts, quantity, unit_price, odometer_km, ocr_quantity, ocr_amount, verification_status) VALUES
   (1, 1, 'CNG-RECEIPT-00001', '2026-10-23 11:10:00', 6.55, 79, 36232, 6.55, 517.45, 'Verified'),
   (2, 2, 'CNG-RECEIPT-00002', '2026-10-24 22:10:00', 6.7, 79, 36279, 6.7, 529.3, 'Verified'),
@@ -2425,7 +2406,6 @@ INSERT INTO fuel_transaction (fuel_txn_id, assignment_id, receipt_ref, purchase_
   (59, 59, 'CNG-RECEIPT-00059', '2026-10-23 11:10:00', 6.95, 79, 41597, 6.95, 549.05, 'Verified'),
   (60, 60, 'CNG-RECEIPT-00060', '2026-10-24 22:10:00', 7.1, 79, 41644, 7.1, 560.9, 'Verified');
 
--- 16. vehicle_expense (30 rows)
 INSERT INTO vehicle_expense (expense_id, vehicle_id, expense_ref, expense_date, expense_type, amount) VALUES
   (1, 1, 'EXP-OCT-01', '2026-10-01', 'Insurance', 254),
   (2, 2, 'EXP-OCT-02', '2026-10-01', 'Insurance', 258),
@@ -2458,7 +2438,6 @@ INSERT INTO vehicle_expense (expense_id, vehicle_id, expense_ref, expense_date, 
   (29, 29, 'EXP-OCT-29', '2026-10-01', 'Insurance', 366),
   (30, 30, 'EXP-OCT-30', '2026-10-01', 'Insurance', 370);
 
--- 17. problem_report (8 rows)
 INSERT INTO problem_report (report_id, vehicle_id, reported_by_driver_id, reported_ts, problem_type, description, report_status) VALUES
   (1, 4, 7, '2026-10-23 17:05:00', 'Brake', 'Synthetic issue for vehicle 4', 'Resolved'),
   (2, 7, 13, '2026-10-24 17:05:00', 'Tyre', 'Synthetic issue for vehicle 7', 'Resolved'),
@@ -2469,7 +2448,6 @@ INSERT INTO problem_report (report_id, vehicle_id, reported_by_driver_id, report
   (7, 22, 43, '2026-10-23 17:05:00', 'Brake', 'Synthetic issue for vehicle 22', 'Open'),
   (8, 25, 49, '2026-10-24 17:05:00', 'Tyre', 'Synthetic issue for vehicle 25', 'Open');
 
--- 18. problem_photo (8 rows)
 INSERT INTO problem_photo (photo_id, report_id, photo_ref) VALUES
   (1, 1, 'IMG/ISSUE-001.jpg'),
   (2, 2, 'IMG/ISSUE-002.jpg'),
@@ -2480,7 +2458,6 @@ INSERT INTO problem_photo (photo_id, report_id, photo_ref) VALUES
   (7, 7, 'IMG/ISSUE-007.jpg'),
   (8, 8, 'IMG/ISSUE-008.jpg');
 
--- 19. maintenance_job (10 rows)
 INSERT INTO maintenance_job (job_id, vehicle_id, report_id, assigned_staff_id, job_type, start_ts, completed_ts, job_status, odometer_km, labour_cost, roadworthy) VALUES
   (1, 4, 1, 2, 'Repair', '2026-10-26 08:32:00', '2026-10-26 10:32:00', 'Completed', 40121, 172, 'Y'),
   (2, 7, 2, 7, 'Repair', '2026-10-26 09:04:00', '2026-10-26 11:04:00', 'Completed', 40242, 204, 'Y'),
@@ -2493,7 +2470,6 @@ INSERT INTO maintenance_job (job_id, vehicle_id, report_id, assigned_staff_id, j
   (9, 25, NULL, 2, 'Scheduled', '2026-10-26 12:48:00', '2026-10-26 14:48:00', 'Completed', 41089, 428, 'Y'),
   (10, 26, NULL, 7, 'Scheduled', '2026-10-26 13:20:00', '2026-10-26 15:20:00', 'Completed', 41210, 460, 'Y');
 
--- 20. maintenance_part (10 rows)
 INSERT INTO maintenance_part (part_id, job_id, part_ref, part_description, quantity, unit_cost) VALUES
   (1, 1, 'PART-001', 'Brake component', 2, 88),
   (2, 2, 'PART-002', 'Filter', 1, 106),
@@ -2506,7 +2482,6 @@ INSERT INTO maintenance_part (part_id, job_id, part_ref, part_description, quant
   (9, 9, 'PART-009', 'Brake component', 2, 232),
   (10, 10, 'PART-010', 'Filter', 1, 250);
 
--- 21. traffic_fine (30 rows)
 INSERT INTO traffic_fine (fine_id, challan_no, notice_registration_no, vehicle_id, violation_ts, violation_type, fine_amount, responsibility, payment_status) VALUES
   (1, 'CHN-2026-0001', 'MH01TX0001', 1, '2026-10-23 10:00:00', 'Signal violation', 300, 'Driver', 'Unpaid'),
   (2, 'CHN-2026-0002', 'MH01TX0002', 2, '2026-10-23 19:00:00', 'Parking violation', 350, 'Driver', 'Unpaid'),
@@ -2539,7 +2514,6 @@ INSERT INTO traffic_fine (fine_id, challan_no, notice_registration_no, vehicle_i
   (29, 'CHN-2026-0029', 'MH01TX0003', 3, '2026-10-25 17:57:00', 'Signal violation', 450, 'Unresolved', 'Unpaid'),
   (30, 'CHN-2026-0030', 'MH99ZZ0000', NULL, '2026-10-24 09:30:00', 'Parking violation', 250, 'Unresolved', 'Paid');
 
--- 22. driver_payment (66 rows)
 INSERT INTO driver_payment (payment_id, driver_id, pay_month, base_pay, commission_pay, deduction, payment_status) VALUES
   (1, 1, '2026-10-01', 11000, 414.4, 0, 'Calculated'),
   (2, 2, '2026-10-01', 11400, 619.96, 0, 'Calculated'),
@@ -2608,7 +2582,6 @@ INSERT INTO driver_payment (payment_id, driver_id, pay_month, base_pay, commissi
   (65, 65, '2026-10-01', 0, 620.43, 0, 'Calculated'),
   (66, 66, '2026-10-01', 0, 0, 0, 'Calculated');
 
--- 23. user_account (74 rows)
 INSERT INTO user_account (user_id, username, user_role, driver_id, staff_id, account_status, mfa_enabled) VALUES
   (1, 'driver_001', 'Driver', 1, NULL, 'Active', 'Y'),
   (2, 'driver_002', 'Driver', 2, NULL, 'Active', 'Y'),
@@ -2685,19 +2658,16 @@ INSERT INTO user_account (user_id, username, user_role, driver_id, staff_id, acc
   (73, 'staff_007', 'Maintenance', NULL, 7, 'Active', 'Y'),
   (74, 'staff_008', 'Management', NULL, 8, 'Active', 'Y');
 
--- 24. data_load_log (3 rows)
 INSERT INTO data_load_log (load_id, source_system, load_started, load_finished, load_status, records_loaded, records_rejected) VALUES
   (1, 'Fleet master synthetic import', '2026-10-26 09:00:00', '2026-10-26 09:01:00', 'Success', 30, 0),
   (2, 'Trip sample synthetic import', '2026-10-26 09:02:00', '2026-10-26 09:05:00', 'Success', 1253, 0),
   (3, 'Other synthetic examples', '2026-10-26 09:06:00', '2026-10-26 09:07:00', 'Success', 30, 0);
 
--- 25. data_quality_issue (3 rows)
 INSERT INTO data_quality_issue (issue_id, load_id, source_table, affected_record_id, issue_type, issue_description, issue_status, detected_ts) VALUES
   (1, 2, 'trip', 47, 'Inconsistent', 'Meter vs GPS mismatch', 'Pending', '2026-10-26 09:06:05'),
   (2, 3, 'traffic_fine', 30, 'Missing', 'Unknown registration', 'Pending', '2026-10-26 09:06:10'),
   (3, 3, 'fuel_transaction', 19, 'Inconsistent', 'OCR differs from driver amount', 'Pending', '2026-10-26 09:06:15');
 
--- Check: count the rows in each table (total should be 2618)
 SELECT COUNT(*) FROM staff;
 SELECT COUNT(*) FROM operating_area;
 SELECT COUNT(*) FROM applicant;
