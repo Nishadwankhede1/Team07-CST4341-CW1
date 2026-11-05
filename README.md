@@ -1,6 +1,6 @@
 # CST4341 Data Management for BI, Coursework 1 (Team07)
 
-SQL scripts and diagrams for the Mumbai taxi company database.
+SQL scripts for the Mumbai taxi company database.
 
 ## SQL scripts (run in order in MySQL Workbench)
 
@@ -13,10 +13,3 @@ SQL scripts and diagrams for the Mumbai taxi company database.
 
 The data is sample data created for privacy. It does not contain real customer or driver details.
 
-## Diagrams (open with draw.io / diagrams.net)
-
-| File | Figure |
-|------|--------|
-| diagrams/Figure1_Conceptual_ERD_Chen.drawio | Conceptual ERD (Chen notation) |
-| diagrams/Figure2_Logical_ERD_CrowsFoot.drawio | Logical ERD (Crow's Foot notation) |
-| diagrams/Figure13_Galaxy_Schema.drawio | Galaxy schema for the data warehouse |
